@@ -25,7 +25,10 @@ app.get('/api/hello', function (req, res) {
 });
 
 app.get('/api/whoami', function(req, res) {
-  const ip = req.ip;
+  var ip = req.ip;
+  if (ip.startsWith("::ffff:")) {
+    ip = ip.slice(7);
+}
   const language = req.headers["accept-language"];
   const software = req.headers["user-agent"];
   res.json({ipaddress: ip, language: language, software: software})
